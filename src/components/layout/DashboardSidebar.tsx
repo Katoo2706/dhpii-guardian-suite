@@ -9,7 +9,12 @@ import {
   Languages,
   ShieldCheck,
   ImageIcon,
-  LogOut
+  LogOut,
+  Database,
+  Tags,
+  Bot,
+  Network,
+  Settings
 } from 'lucide-react';
 import {
   Sidebar,
@@ -36,6 +41,12 @@ const detectionItems = [
 const anonymizationItems = [
   { title: 'Text Anonymization', url: '/dashboard/anonymization/text', icon: ShieldCheck },
   { title: 'Image Anonymization', url: '/dashboard/anonymization/image', icon: ImageIcon },
+];
+
+const integrationItems = [
+  { title: 'Integrations', url: '/dashboard/integrations', icon: Database },
+  { title: 'Data Catalog', url: '/dashboard/catalog', icon: Tags },
+  { title: 'MCP Server', url: '/dashboard/mcp', icon: Bot },
 ];
 
 export function DashboardSidebar() {
@@ -98,6 +109,29 @@ export function DashboardSidebar() {
           <SidebarGroupContent>
             <SidebarMenu className="space-y-1">
               {anonymizationItems.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton asChild>
+                    <NavLink 
+                      to={item.url} 
+                      className={`flex items-center px-3 py-2 rounded-md transition-colors ${getNavClasses(item.url)}`}
+                    >
+                      <item.icon className="w-4 h-4 mr-3" />
+                      {!isCollapsed && <span>{item.title}</span>}
+                    </NavLink>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+        <SidebarGroup>
+          <SidebarGroupLabel className="px-4 py-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+            Enterprise
+          </SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu className="space-y-1">
+              {integrationItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
                     <NavLink 

@@ -13,6 +13,9 @@ import { Languages } from "./pages/dashboard/Languages";
 import { TextAnonymization } from "./pages/dashboard/TextAnonymization";
 import { ImageAnonymization } from "./pages/dashboard/ImageAnonymization";
 import { SystemHealth } from "./pages/dashboard/SystemHealth";
+import { Integrations } from "./pages/dashboard/Integrations";
+import { DataCatalog } from "./pages/dashboard/DataCatalog";
+import { MCPServer } from "./pages/dashboard/MCPServer";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -80,6 +83,11 @@ const App = () => (
               {/* Anonymization Routes */}
               <Route path="anonymization/text" element={<TextAnonymization />} />
               <Route path="anonymization/image" element={<ImageAnonymization />} />
+              
+              {/* Enterprise Routes */}
+              <Route path="integrations" element={<Integrations />} />
+              <Route path="catalog" element={<DataCatalog />} />
+              <Route path="mcp" element={<MCPServer />} />
               
               {/* System Routes */}
               <Route path="health" element={<SystemHealth />} />

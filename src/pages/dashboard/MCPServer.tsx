@@ -422,27 +422,53 @@ export const MCPServer: React.FC = () => {
           
           <Card>
             <CardHeader>
-              <CardTitle>Custom AI Prompts</CardTitle>
-              <CardDescription>Customize AI behavior with specific prompts and instructions</CardDescription>
+              <CardTitle>AI Chat Console</CardTitle>
+              <CardDescription>Interact with MCP AI assistants for data governance tasks</CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <div>
-                <Label htmlFor="detection-prompt">PII/PHI Detection Prompt</Label>
-                <Textarea
-                  id="detection-prompt"
-                  placeholder="Enter custom detection instructions for AI models..."
-                  className="min-h-[100px]"
-                  value="Analyze the provided text for personally identifiable information (PII) and protected health information (PHI). Focus on names, addresses, SSNs, medical record numbers, and health conditions. Provide confidence scores for each detection."
-                />
-              </div>
-              <div>
-                <Label htmlFor="classification-prompt">Data Classification Prompt</Label>
-                <Textarea
-                  id="classification-prompt"
-                  placeholder="Enter custom classification instructions..."
-                  className="min-h-[100px]"
-                  value="Classify the provided data according to sensitivity levels: Public, Internal, Confidential, or Restricted. Consider regulatory requirements such as HIPAA, GDPR, and PCI DSS."
-                />
+            <CardContent>
+              <div className="flex flex-col h-96 border border-border rounded-lg">
+                <div className="flex-1 p-4 overflow-y-auto bg-muted/20">
+                  <div className="space-y-4">
+                    <div className="flex items-start space-x-3">
+                      <div className="w-8 h-8 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center">
+                        <Bot className="w-4 h-4 text-white" />
+                      </div>
+                      <div className="bg-background p-3 rounded-lg border max-w-xs">
+                        <p className="text-sm">Hello! I'm your DHPII AI assistant. I can help you with PII/PHI detection, data governance policies, and system automation. What would you like to know?</p>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-start space-x-3 justify-end">
+                      <div className="bg-primary p-3 rounded-lg max-w-xs">
+                        <p className="text-sm text-primary-foreground">Analyze the customer database for PII exposure</p>
+                      </div>
+                      <div className="w-8 h-8 bg-gradient-to-br from-accent to-primary rounded-full flex items-center justify-center">
+                        <span className="text-xs font-bold text-white">U</span>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-start space-x-3">
+                      <div className="w-8 h-8 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center">
+                        <Bot className="w-4 h-4 text-white" />
+                      </div>
+                      <div className="bg-background p-3 rounded-lg border max-w-xs">
+                        <p className="text-sm">I've initiated a PII scan on your customer database. Found 247 potential PII entities with 94% confidence. Would you like me to start the anonymization process?</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="p-4 border-t border-border">
+                  <div className="flex space-x-2">
+                    <Input
+                      placeholder="Ask about data governance, PII detection, or system status..."
+                      className="flex-1"
+                    />
+                    <Button size="sm" className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90">
+                      Send
+                    </Button>
+                  </div>
+                </div>
               </div>
             </CardContent>
           </Card>

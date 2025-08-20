@@ -134,23 +134,40 @@ I live at 123 Main Street, Seattle, WA 98101.`;
               </div>
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="anonymization-type">Anonymization Method</Label>
-              <Select value={anonymizationType} onValueChange={setAnonymizationType}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select anonymization method" />
-                </SelectTrigger>
-                <SelectContent>
-                  {ANONYMIZATION_TYPES.map((type) => (
-                    <SelectItem key={type.value} value={type.value}>
-                      {type.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <p className="text-xs text-muted-foreground">
-                {getAnonymizationTypeDescription(anonymizationType)}
-              </p>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="ai-model">AI Model</Label>
+                <Select defaultValue="presidio">
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select AI model" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="presidio">Microsoft Presidio</SelectItem>
+                    <SelectItem value="gpt4">GPT-4 Turbo</SelectItem>
+                    <SelectItem value="claude">Claude-3 Sonnet</SelectItem>
+                    <SelectItem value="gemini">Gemini Pro</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="anonymization-type">Anonymization Method</Label>
+                <Select value={anonymizationType} onValueChange={setAnonymizationType}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select anonymization method" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {ANONYMIZATION_TYPES.map((type) => (
+                      <SelectItem key={type.value} value={type.value}>
+                        {type.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <p className="text-xs text-muted-foreground">
+                  {getAnonymizationTypeDescription(anonymizationType)}
+                </p>
+              </div>
             </div>
 
             <div className="space-y-2">

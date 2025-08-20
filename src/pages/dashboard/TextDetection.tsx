@@ -142,7 +142,22 @@ I live at 123 Main Street, Seattle, WA 98101.`;
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-3 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="ai-model">AI Model</Label>
+                <Select defaultValue="presidio">
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select AI model" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="presidio">Microsoft Presidio</SelectItem>
+                    <SelectItem value="gpt4">GPT-4 Turbo</SelectItem>
+                    <SelectItem value="claude">Claude-3 Sonnet</SelectItem>
+                    <SelectItem value="gemini">Gemini Pro</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
               <div className="space-y-2">
                 <Label htmlFor="language">Language</Label>
                 <Select value={language} onValueChange={setLanguage}>

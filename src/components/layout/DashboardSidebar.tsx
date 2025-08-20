@@ -35,12 +35,13 @@ import { useAuth } from '@/contexts/AuthContext';
 const detectionItems = [
   { title: 'Text Detection', url: '/dashboard/detection/text', icon: FileText },
   { title: 'Image Detection', url: '/dashboard/detection/image', icon: Image },
-  { title: 'Languages', url: '/dashboard/detection/languages', icon: Languages },
+  { title: 'Structured Detection', url: '/dashboard/detection/structured', icon: Database },
 ];
 
 const anonymizationItems = [
   { title: 'Text Anonymization', url: '/dashboard/anonymization/text', icon: ShieldCheck },
   { title: 'Image Anonymization', url: '/dashboard/anonymization/image', icon: ImageIcon },
+  { title: 'Structured Anonymization', url: '/dashboard/anonymization/structured', icon: Database },
 ];
 
 const integrationItems = [

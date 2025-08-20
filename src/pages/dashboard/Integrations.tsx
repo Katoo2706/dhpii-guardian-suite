@@ -362,6 +362,48 @@ export const Integrations: React.FC = () => {
         </Card>
       </div>
 
+      {/* Database Icons Grid */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Available Database Connectors</CardTitle>
+          <CardDescription>
+            Choose from our extensive library of database and service connectors
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-8">
+            {[
+              { name: 'PostgreSQL', icon: '🐘', color: 'from-blue-500 to-blue-600' },
+              { name: 'MySQL', icon: '🐬', color: 'from-orange-500 to-orange-600' },
+              { name: 'MongoDB', icon: '🍃', color: 'from-green-500 to-green-600' },
+              { name: 'Snowflake', icon: '❄️', color: 'from-cyan-500 to-cyan-600' },
+              { name: 'BigQuery', icon: '📊', color: 'from-blue-600 to-indigo-600' },
+              { name: 'Redshift', icon: '🚀', color: 'from-red-500 to-red-600' },
+              { name: 'DataHub', icon: '🏛️', color: 'from-purple-500 to-purple-600' },
+              { name: 'Atlas', icon: '🗺️', color: 'from-emerald-500 to-emerald-600' },
+              { name: 'Databricks', icon: '🧱', color: 'from-red-600 to-orange-600' },
+              { name: 'Unity Catalog', icon: '🏗️', color: 'from-violet-500 to-violet-600' },
+              { name: 'Salesforce', icon: '☁️', color: 'from-blue-400 to-blue-500' },
+              { name: 'Oracle', icon: '🔴', color: 'from-red-500 to-red-700' },
+            ].map((db) => (
+              <div
+                key={db.name}
+                className="group cursor-pointer p-4 border border-border rounded-lg hover:border-primary/50 hover:bg-muted/30 transition-all duration-200 text-center"
+                onClick={() => {
+                  setNewIntegration({...newIntegration, name: db.name});
+                  setIsAddDialogOpen(true);
+                }}
+              >
+                <div className={`w-12 h-12 mx-auto mb-2 bg-gradient-to-br ${db.color} rounded-lg flex items-center justify-center text-2xl transform group-hover:scale-110 transition-transform`}>
+                  {db.icon}
+                </div>
+                <p className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">{db.name}</p>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
       {/* Integrations List */}
       <Card>
         <CardHeader>

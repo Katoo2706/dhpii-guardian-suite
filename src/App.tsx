@@ -9,7 +9,8 @@ import { DashboardLayout } from "./components/layout/DashboardLayout";
 import { Landing } from "./pages/Landing";
 import { TextDetection } from "./pages/dashboard/TextDetection";
 import { ImageDetection } from "./pages/dashboard/ImageDetection";
-import { Languages } from "./pages/dashboard/Languages";
+import { StructuredDetection } from "./pages/dashboard/StructuredDetection";
+import { StructuredAnonymization } from "./pages/dashboard/StructuredAnonymization";
 import { TextAnonymization } from "./pages/dashboard/TextAnonymization";
 import { ImageAnonymization } from "./pages/dashboard/ImageAnonymization";
 import { SystemHealth } from "./pages/dashboard/SystemHealth";
@@ -78,11 +79,12 @@ const App = () => (
               {/* Detection Routes */}
               <Route path="detection/text" element={<TextDetection />} />
               <Route path="detection/image" element={<ImageDetection />} />
-              <Route path="detection/languages" element={<Languages />} />
+              <Route path="detection/structured" element={<StructuredDetection />} />
               
               {/* Anonymization Routes */}
               <Route path="anonymization/text" element={<TextAnonymization />} />
               <Route path="anonymization/image" element={<ImageAnonymization />} />
+              <Route path="anonymization/structured" element={<StructuredAnonymization />} />
               
               {/* Enterprise Routes */}
               <Route path="integrations" element={<Integrations />} />

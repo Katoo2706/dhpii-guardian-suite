@@ -524,40 +524,7 @@ export const MCPServer: React.FC = () => {
                     🔒 All conversations are encrypted and comply with healthcare privacy standards
                   </p>
                 </div>
-              </div>
-                    
-                    <div className="flex items-start space-x-3 justify-end">
-                      <div className="bg-primary p-3 rounded-lg max-w-xs">
-                        <p className="text-sm text-primary-foreground">Analyze the customer database for PII exposure</p>
-                      </div>
-                      <div className="w-8 h-8 bg-gradient-to-br from-accent to-primary rounded-full flex items-center justify-center">
-                        <span className="text-xs font-bold text-white">U</span>
-                      </div>
-                    </div>
-                    
-                    <div className="flex items-start space-x-3">
-                      <div className="w-8 h-8 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center">
-                        <Bot className="w-4 h-4 text-white" />
-                      </div>
-                      <div className="bg-background p-3 rounded-lg border max-w-xs">
-                        <p className="text-sm">I've initiated a PII scan on your customer database. Found 247 potential PII entities with 94% confidence. Would you like me to start the anonymization process?</p>
-                      </div>
-                    </div>
-                  </div>
                 </div>
-                
-                <div className="p-4 border-t border-border">
-                  <div className="flex space-x-2">
-                    <Input
-                      placeholder="Ask about data governance, PII detection, or system status..."
-                      className="flex-1"
-                    />
-                    <Button size="sm" className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90">
-                      Send
-                    </Button>
-                  </div>
-                </div>
-              </div>
             </CardContent>
           </Card>
         </TabsContent>

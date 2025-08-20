@@ -6,6 +6,8 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { useToast } from '@/hooks/use-toast';
 import { 
   Cloud, 
   Download, 
@@ -18,7 +20,12 @@ import {
   HardDrive,
   Eye,
   Archive,
-  Filter
+  Filter,
+  Plus,
+  Settings,
+  Tags,
+  Search,
+  BookOpen
 } from 'lucide-react';
 
 interface OutputRecord {
@@ -34,7 +41,9 @@ interface OutputRecord {
 }
 
 export const OutputCatalog: React.FC = () => {
+  const { toast } = useToast();
   const [filter, setFilter] = useState<string>('all');
+  const [isAddCatalogOpen, setIsAddCatalogOpen] = useState(false);
   
   const outputRecords: OutputRecord[] = [
     {
@@ -130,6 +139,29 @@ export const OutputCatalog: React.FC = () => {
     restrictedFiles: 1088
   };
 
+  const catalogProviders = {
+    'enterprise': [
+      { name: 'DataHub', icon: '🏛️', color: 'from-blue-600 to-indigo-600', description: 'Modern data discovery platform' },
+      { name: 'Apache Atlas', icon: '🗺️', color: 'from-orange-600 to-red-600', description: 'Data governance and metadata framework' },
+      { name: 'Collibra', icon: '🎯', color: 'from-green-600 to-teal-600', description: 'Data intelligence platform' },
+      { name: 'Alation', icon: '📚', color: 'from-purple-600 to-pink-600', description: 'Data catalog and governance' },
+      { name: 'Informatica EDC', icon: '🔍', color: 'from-cyan-600 to-blue-600', description: 'Enterprise data catalog' },
+      { name: 'IBM Watson Knowledge Catalog', icon: '🧠', color: 'from-blue-500 to-purple-500', description: 'AI-powered data catalog' }
+    ],
+    'cloud': [
+      { name: 'AWS Glue Catalog', icon: '☁️', color: 'from-orange-500 to-orange-600', description: 'Amazon managed metadata repository' },
+      { name: 'Azure Purview', icon: '🔷', color: 'from-blue-500 to-blue-600', description: 'Microsoft unified data governance' },
+      { name: 'Google Data Catalog', icon: '📊', color: 'from-green-500 to-green-600', description: 'Google Cloud metadata management' },
+      { name: 'Snowflake Data Catalog', icon: '❄️', color: 'from-cyan-500 to-cyan-600', description: 'Built-in data discovery' }
+    ],
+    'opensource': [
+      { name: 'OpenMetadata', icon: '🔓', color: 'from-green-600 to-teal-600', description: 'Open-source metadata platform' },
+      { name: 'Apache Iceberg Catalog', icon: '🧊', color: 'from-cyan-600 to-blue-600', description: 'Table format metadata' },
+      { name: 'Hive Metastore', icon: '🐝', color: 'from-yellow-600 to-orange-600', description: 'Hadoop metadata service' },
+      { name: 'Marquez', icon: '📏', color: 'from-purple-600 to-pink-600', description: 'Data lineage collection and visualization' }
+    ]
+  };
+
   return (
     <div className="space-y-8">
       <div className="flex items-center justify-between">
@@ -155,6 +187,67 @@ export const OutputCatalog: React.FC = () => {
               <option value="report">Compliance Reports</option>
             </select>
           </div>
+          <Dialog open={isAddCatalogOpen} onOpenChange={setIsAddCatalogOpen}>
+            <DialogTrigger asChild>
+              <Button variant="outline" className="shadow-medium">
+                <Plus className="w-4 h-4 mr-2" />
+                Add Catalog
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="max-w-4xl">
+              <DialogHeader>
+                <DialogTitle className="flex items-center gap-2">
+                  <BookOpen className="w-5 h-5 text-primary" />
+                  Connect Data Catalog
+                </DialogTitle>
+                <DialogDescription>
+                  Integrate with data catalogs for metadata management and PII/PHI tagging
+                </DialogDescription>
+              </DialogHeader>
+              
+              <div className="max-h-96 overflow-y-auto">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 p-6">
+                  {Object.entries(catalogProviders).map(([category, providers]) => (
+                    <div key={category} className="space-y-4">
+                      <div className="flex items-center gap-2">
+                        <div className="w-2 h-2 bg-accent rounded-full" />
+                        <h3 className="font-semibold text-base capitalize text-foreground">
+                          {category === 'enterprise' ? 'Enterprise Catalogs' :
+                           category === 'cloud' ? 'Cloud Native' :
+                           'Open Source'}
+                        </h3>
+                      </div>
+                      <div className="grid gap-3">
+                        {providers.map((provider) => (
+                          <div
+                            key={provider.name}
+                            className="group cursor-pointer p-4 border border-border rounded-lg hover:border-accent/50 hover:bg-muted/30 transition-all duration-200 hover:shadow-md"
+                            onClick={() => {
+                              toast({
+                                title: "Catalog Integration",
+                                description: `Setting up ${provider.name} for metadata and tagging...`,
+                              });
+                              setIsAddCatalogOpen(false);
+                            }}
+                          >
+                            <div className="flex items-center gap-3">
+                              <div className={`w-10 h-10 bg-gradient-to-br ${provider.color} rounded-lg flex items-center justify-center text-lg transform group-hover:scale-110 transition-transform`}>
+                                {provider.icon}
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <p className="font-medium text-foreground group-hover:text-accent transition-colors">{provider.name}</p>
+                                <p className="text-xs text-muted-foreground truncate">{provider.description}</p>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
           <Button className="bg-gradient-primary text-white shadow-medium hover:shadow-strong">
             <Archive className="w-4 h-4 mr-2" />
             Archive Outputs

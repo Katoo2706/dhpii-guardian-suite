@@ -110,36 +110,58 @@ export const DataStorage: React.FC = () => {
 
   const storageProviders = {
     database: [
-      { name: 'PostgreSQL', icon: '🐘', color: 'from-blue-500 to-blue-600' },
-      { name: 'MySQL', icon: '🐬', color: 'from-orange-500 to-orange-600' },
-      { name: 'MongoDB', icon: '🍃', color: 'from-green-500 to-green-600' },
-      { name: 'Oracle', icon: '🔴', color: 'from-red-500 to-red-700' },
-      { name: 'SQL Server', icon: '🔵', color: 'from-blue-600 to-blue-700' },
-      { name: 'Cassandra', icon: '⚡', color: 'from-yellow-500 to-yellow-600' }
+      { name: 'PostgreSQL', icon: '🐘', color: 'from-blue-500 to-blue-600', description: 'Open-source relational database' },
+      { name: 'MySQL', icon: '🐬', color: 'from-orange-500 to-orange-600', description: 'Popular open-source database' },
+      { name: 'MongoDB', icon: '🍃', color: 'from-green-500 to-green-600', description: 'NoSQL document database' },
+      { name: 'Oracle', icon: '🔴', color: 'from-red-500 to-red-700', description: 'Enterprise relational database' },
+      { name: 'SQL Server', icon: '🔵', color: 'from-blue-600 to-blue-700', description: 'Microsoft database system' },
+      { name: 'Cassandra', icon: '⚡', color: 'from-yellow-500 to-yellow-600', description: 'Distributed NoSQL database' },
+      { name: 'Redis', icon: '🔴', color: 'from-red-400 to-red-500', description: 'In-memory data structure store' },
+      { name: 'MariaDB', icon: '🐬', color: 'from-blue-400 to-blue-500', description: 'MySQL-compatible database' }
     ],
     warehouse: [
-      { name: 'Snowflake', icon: '❄️', color: 'from-cyan-500 to-cyan-600' },
-      { name: 'BigQuery', icon: '📊', color: 'from-blue-600 to-indigo-600' },
-      { name: 'Redshift', icon: '🚀', color: 'from-red-500 to-red-600' },
-      { name: 'Databricks', icon: '🧱', color: 'from-red-600 to-orange-600' },
-      { name: 'Synapse', icon: '🔷', color: 'from-blue-500 to-blue-600' },
-      { name: 'Teradata', icon: '🔶', color: 'from-orange-600 to-red-600' }
+      { name: 'Snowflake', icon: '❄️', color: 'from-cyan-500 to-cyan-600', description: 'Cloud data warehouse platform' },
+      { name: 'BigQuery', icon: '📊', color: 'from-blue-600 to-indigo-600', description: 'Google serverless data warehouse' },
+      { name: 'Redshift', icon: '🚀', color: 'from-red-500 to-red-600', description: 'Amazon cloud data warehouse' },
+      { name: 'Databricks', icon: '🧱', color: 'from-red-600 to-orange-600', description: 'Unified analytics platform' },
+      { name: 'Synapse', icon: '🔷', color: 'from-blue-500 to-blue-600', description: 'Azure analytics service' },
+      { name: 'Teradata', icon: '🔶', color: 'from-orange-600 to-red-600', description: 'Enterprise data warehouse' },
+      { name: 'Vertica', icon: '🔵', color: 'from-blue-700 to-indigo-700', description: 'Columnar analytics database' },
+      { name: 'ClickHouse', icon: '⚡', color: 'from-yellow-600 to-orange-600', description: 'Real-time analytics DBMS' }
+    ],
+    lakehouse: [
+      { name: 'Trino', icon: '🔺', color: 'from-purple-600 to-pink-600', description: 'Distributed SQL query engine' },
+      { name: 'Delta Lake', icon: '🔺', color: 'from-blue-600 to-purple-600', description: 'Open-source storage framework' },
+      { name: 'Apache Iceberg', icon: '🧊', color: 'from-cyan-600 to-blue-600', description: 'High-performance table format' },
+      { name: 'Apache Hudi', icon: '🔥', color: 'from-orange-600 to-red-600', description: 'Incremental data processing' },
+      { name: 'Dremio', icon: '💎', color: 'from-indigo-600 to-purple-600', description: 'Data lake engine' },
+      { name: 'Starburst', icon: '⭐', color: 'from-yellow-500 to-orange-500', description: 'Trino-based analytics platform' }
     ],
     lake: [
-      { name: 'AWS S3', icon: '☁️', color: 'from-orange-500 to-orange-600' },
-      { name: 'Azure Data Lake', icon: '🌊', color: 'from-blue-500 to-blue-600' },
-      { name: 'Google Cloud Storage', icon: '☁️', color: 'from-green-500 to-green-600' },
-      { name: 'Hadoop HDFS', icon: '🐘', color: 'from-yellow-600 to-orange-600' },
-      { name: 'MinIO', icon: '🗄️', color: 'from-red-500 to-red-600' },
-      { name: 'Delta Lake', icon: '🔺', color: 'from-blue-600 to-purple-600' }
+      { name: 'AWS S3', icon: '☁️', color: 'from-orange-500 to-orange-600', description: 'Amazon object storage' },
+      { name: 'Azure Data Lake', icon: '🌊', color: 'from-blue-500 to-blue-600', description: 'Microsoft data lake storage' },
+      { name: 'Google Cloud Storage', icon: '☁️', color: 'from-green-500 to-green-600', description: 'Google object storage' },
+      { name: 'Hadoop HDFS', icon: '🐘', color: 'from-yellow-600 to-orange-600', description: 'Distributed file system' },
+      { name: 'MinIO', icon: '🗄️', color: 'from-red-500 to-red-600', description: 'High-performance object storage' },
+      { name: 'Ceph', icon: '🔮', color: 'from-purple-500 to-purple-600', description: 'Unified distributed storage' }
+    ],
+    etl: [
+      { name: 'Fivetran', icon: '5️⃣', color: 'from-blue-500 to-cyan-500', description: 'Automated data integration' },
+      { name: 'Stitch', icon: '🧵', color: 'from-purple-500 to-pink-500', description: 'Simple data pipeline platform' },
+      { name: 'Airbyte', icon: '🌊', color: 'from-blue-400 to-blue-600', description: 'Open-source data integration' },
+      { name: 'Apache Airflow', icon: '🌪️', color: 'from-teal-500 to-cyan-600', description: 'Workflow orchestration platform' },
+      { name: 'Talend', icon: '🔄', color: 'from-green-600 to-teal-600', description: 'Data integration and quality' },
+      { name: 'Informatica', icon: '📊', color: 'from-orange-500 to-red-500', description: 'Enterprise data management' }
     ],
     api: [
-      { name: 'Epic FHIR', icon: '🏥', color: 'from-blue-600 to-blue-700' },
-      { name: 'Cerner API', icon: '🏥', color: 'from-green-500 to-green-600' },
-      { name: 'Salesforce', icon: '☁️', color: 'from-blue-400 to-blue-500' },
-      { name: 'REST API', icon: '🔗', color: 'from-purple-500 to-purple-600' },
-      { name: 'GraphQL', icon: '📡', color: 'from-pink-500 to-pink-600' },
-      { name: 'Custom API', icon: '⚙️', color: 'from-gray-500 to-gray-600' }
+      { name: 'Epic FHIR', icon: '🏥', color: 'from-blue-600 to-blue-700', description: 'Healthcare interoperability standard' },
+      { name: 'Cerner API', icon: '🏥', color: 'from-green-500 to-green-600', description: 'Healthcare data platform' },
+      { name: 'Salesforce', icon: '☁️', color: 'from-blue-400 to-blue-500', description: 'CRM platform APIs' },
+      { name: 'REST API', icon: '🔗', color: 'from-purple-500 to-purple-600', description: 'RESTful web services' },
+      { name: 'GraphQL', icon: '📡', color: 'from-pink-500 to-pink-600', description: 'Query language for APIs' },
+      { name: 'SOAP API', icon: '🧼', color: 'from-cyan-500 to-blue-500', description: 'XML-based messaging protocol' },
+      { name: 'gRPC', icon: '⚡', color: 'from-yellow-500 to-orange-500', description: 'High-performance RPC framework' },
+      { name: 'Custom API', icon: '⚙️', color: 'from-gray-500 to-gray-600', description: 'Custom integration endpoints' }
     ]
   };
 
@@ -169,32 +191,46 @@ export const DataStorage: React.FC = () => {
               </DialogDescription>
             </DialogHeader>
             
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 p-4">
-              {Object.entries(storageProviders).map(([category, providers]) => (
-                <div key={category} className="space-y-3">
-                  <h3 className="font-semibold text-sm capitalize text-muted-foreground">{category}</h3>
-                  <div className="grid gap-2">
-                    {providers.slice(0, 3).map((provider) => (
-                      <div
-                        key={provider.name}
-                        className="group cursor-pointer p-3 border border-border rounded-lg hover:border-primary/50 hover:bg-muted/30 transition-all duration-200"
-                        onClick={() => {
-                          toast({
-                            title: "Integration Selected",
-                            description: `Setting up ${provider.name} connection...`,
-                          });
-                          setIsAddDialogOpen(false);
-                        }}
-                      >
-                        <div className={`w-8 h-8 mb-2 bg-gradient-to-br ${provider.color} rounded-lg flex items-center justify-center text-lg transform group-hover:scale-110 transition-transform`}>
-                          {provider.icon}
+            <div className="max-h-96 overflow-y-auto">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 p-6">
+                {Object.entries(storageProviders).map(([category, providers]) => (
+                  <div key={category} className="space-y-4">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-primary rounded-full" />
+                      <h3 className="font-semibold text-base capitalize text-foreground">
+                        {category === 'lakehouse' ? 'Lakehouse Platforms' : 
+                         category === 'etl' ? 'ETL & Integration' : 
+                         category}
+                      </h3>
+                    </div>
+                    <div className="grid gap-3">
+                      {providers.map((provider) => (
+                        <div
+                          key={provider.name}
+                          className="group cursor-pointer p-4 border border-border rounded-lg hover:border-primary/50 hover:bg-muted/30 transition-all duration-200 hover:shadow-md"
+                          onClick={() => {
+                            toast({
+                              title: "Integration Selected",
+                              description: `Setting up ${provider.name} connection...`,
+                            });
+                            setIsAddDialogOpen(false);
+                          }}
+                        >
+                          <div className="flex items-center gap-3">
+                            <div className={`w-10 h-10 bg-gradient-to-br ${provider.color} rounded-lg flex items-center justify-center text-lg transform group-hover:scale-110 transition-transform`}>
+                              {provider.icon}
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <p className="font-medium text-foreground group-hover:text-primary transition-colors">{provider.name}</p>
+                              <p className="text-xs text-muted-foreground truncate">{provider.description}</p>
+                            </div>
+                          </div>
                         </div>
-                        <p className="text-xs font-medium group-hover:text-primary transition-colors">{provider.name}</p>
-                      </div>
-                    ))}
+                      ))}
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </DialogContent>
         </Dialog>

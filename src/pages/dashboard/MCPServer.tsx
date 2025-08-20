@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -23,7 +23,10 @@ import {
   Code,
   Database,
   Brain,
-  Eye
+  Eye,
+  Send,
+  MessageCircle,
+  User
 } from 'lucide-react';
 
 interface MCPConnector {
@@ -47,9 +50,86 @@ interface MCPTask {
   estimatedTime?: string;
 }
 
+interface ChatMessage {
+  id: string;
+  type: 'user' | 'assistant';
+  content: string;
+  timestamp: string;
+}
+
 export const MCPServer: React.FC = () => {
   const [autoMode, setAutoMode] = useState(true);
   const [selectedConnector, setSelectedConnector] = useState<string | null>(null);
+  const [chatMessages, setChatMessages] = useState<ChatMessage[]>([
+    {
+      id: '1',
+      type: 'assistant',
+      content: 'Hello! I\'m your AI assistant for data governance and privacy analysis. How can I help you today?',
+      timestamp: '2024-01-15 14:30:00'
+    },
+    {
+      id: '2',
+      type: 'user',
+      content: 'Can you analyze the patient database for PII exposure?',
+      timestamp: '2024-01-15 14:31:00'
+    },
+    {
+      id: '3',
+      type: 'assistant',
+      content: 'I\'ve initiated a comprehensive PII scan on your patient database. Found 247 potential PII entities across 15,000 records with 94% confidence. The analysis includes names, SSNs, email addresses, and phone numbers. Would you like me to start the anonymization process?',
+      timestamp: '2024-01-15 14:31:30'
+    }
+  ]);
+  const [newMessage, setNewMessage] = useState('');
+  const chatEndRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [chatMessages]);
+
+  const handleSendMessage = () => {
+    if (!newMessage.trim()) return;
+
+    const userMessage: ChatMessage = {
+      id: Date.now().toString(),
+      type: 'user',
+      content: newMessage,
+      timestamp: new Date().toLocaleString()
+    };
+
+    setChatMessages(prev => [...prev, userMessage]);
+    setNewMessage('');
+
+    // Simulate AI response
+    setTimeout(() => {
+      const responses = [
+        'I\'m analyzing your request. Let me check the data governance policies and run the appropriate scans.',
+        'Based on my analysis, I found several areas that need attention. I\'ll generate a detailed report for you.',
+        'I\'ve completed the scan. The results show moderate risk levels in 3 data sources. Shall I proceed with remediation?',
+        'Your data appears to be well-protected. I\'ve identified 12 potential improvements for enhanced privacy compliance.',
+      ];
+      
+      const aiMessage: ChatMessage = {
+        id: (Date.now() + 1).toString(),
+        type: 'assistant',
+        content: responses[Math.floor(Math.random() * responses.length)],
+        timestamp: new Date().toLocaleString()
+      };
+
+      setChatMessages(prev => [...prev, aiMessage]);
+    }, 1500);
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSendMessage();
+    }
+  };
 
   const connectors: MCPConnector[] = [
     {
@@ -246,12 +326,96 @@ export const MCPServer: React.FC = () => {
         </Card>
       </div>
 
-      <Tabs defaultValue="connectors" className="w-full">
-        <TabsList className="grid w-full grid-cols-3">
+      <Tabs defaultValue="chat" className="w-full">
+        <TabsList className="grid w-full grid-cols-4">
+          <TabsTrigger value="chat">AI Chat Console</TabsTrigger>
           <TabsTrigger value="connectors">AI Connectors</TabsTrigger>
           <TabsTrigger value="tasks">Active Tasks</TabsTrigger>
           <TabsTrigger value="configuration">Configuration</TabsTrigger>
         </TabsList>
+        
+        <TabsContent value="chat" className="space-y-4">
+          <Card className="shadow-elegant border-primary/20">
+            <CardHeader className="bg-gradient-to-r from-primary/5 to-accent/5">
+              <CardTitle className="flex items-center gap-2">
+                <MessageCircle className="w-5 h-5 text-primary" />
+                AI Assistant Console
+              </CardTitle>
+              <CardDescription>
+                Interact with our AI for real-time data governance, PII detection, and privacy analysis
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="p-0">
+              <div className="flex flex-col h-[600px]">
+                {/* Chat Messages */}
+                <div className="flex-1 overflow-y-auto p-6 space-y-4 bg-gradient-to-b from-background to-muted/30">
+                  {chatMessages.map((message) => (
+                    <div
+                      key={message.id}
+                      className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'} gap-3`}
+                    >
+                      {message.type === 'assistant' && (
+                        <div className="w-8 h-8 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center shrink-0">
+                          <Bot className="w-4 h-4 text-white" />
+                        </div>
+                      )}
+                      
+                      <div className={`max-w-md p-4 rounded-2xl ${
+                        message.type === 'user' 
+                          ? 'bg-gradient-to-r from-primary to-accent text-white ml-12' 
+                          : 'bg-card border border-border shadow-soft mr-12'
+                      }`}>
+                        <p className="text-sm leading-relaxed">{message.content}</p>
+                        <p className={`text-xs mt-2 ${
+                          message.type === 'user' ? 'text-white/70' : 'text-muted-foreground'
+                        }`}>
+                          {message.timestamp}
+                        </p>
+                      </div>
+                      
+                      {message.type === 'user' && (
+                        <div className="w-8 h-8 bg-gradient-to-br from-muted to-muted-foreground rounded-full flex items-center justify-center shrink-0">
+                          <User className="w-4 h-4 text-white" />
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                  <div ref={chatEndRef} />
+                </div>
+                
+                {/* Chat Input */}
+                <div className="p-6 border-t border-border bg-card">
+                  <div className="flex gap-3">
+                    <Input
+                      value={newMessage}
+                      onChange={(e) => setNewMessage(e.target.value)}
+                      onKeyPress={handleKeyPress}
+                      placeholder="Ask about data governance, PII detection, anonymization, or system status..."
+                      className="flex-1 bg-background border-border focus:border-primary transition-colors"
+                    />
+                    <Button 
+                      onClick={handleSendMessage}
+                      disabled={!newMessage.trim()}
+                      className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 shadow-medium"
+                    >
+                      <Send className="w-4 h-4" />
+                    </Button>
+                  </div>
+                  <div className="flex items-center gap-4 mt-3 text-xs text-muted-foreground">
+                    <div className="flex items-center gap-1">
+                      <div className="w-2 h-2 bg-success rounded-full animate-pulse" />
+                      <span>AI Assistant Online</span>
+                    </div>
+                    <span>•</span>
+                    <span>HIPAA Compliant</span>
+                    <span>•</span>
+                    <span>End-to-End Encrypted</span>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
         
         <TabsContent value="connectors" className="space-y-4">
           <Card>
@@ -419,114 +583,6 @@ export const MCPServer: React.FC = () => {
               </CardContent>
             </Card>
           </div>
-          
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Bot className="w-5 h-5 text-primary" />
-                AI Chat Console
-              </CardTitle>
-              <CardDescription>Interact with MCP AI assistants for data governance tasks</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="flex flex-col h-[500px] border border-border/50 rounded-xl overflow-hidden bg-gradient-to-b from-muted/30 to-muted/10">
-                <div className="flex items-center justify-between p-4 border-b border-border/50 bg-gradient-to-r from-primary/5 to-accent/5">
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 bg-success rounded-full animate-pulse" />
-                    <span className="text-sm font-medium">AI Assistant Online</span>
-                  </div>
-                  <Badge className="bg-success/15 text-success border-success/30">Connected</Badge>
-                </div>
-                
-                <div className="flex-1 p-6 overflow-y-auto space-y-6">
-                  {/* AI Welcome Message */}
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 bg-gradient-primary rounded-xl flex items-center justify-center shadow-medium">
-                      <Bot className="w-5 h-5 text-white" />
-                    </div>
-                    <div className="flex-1">
-                      <div className="bg-gradient-to-r from-background to-muted/30 p-4 rounded-xl border border-primary/20 shadow-soft max-w-md">
-                        <p className="text-sm leading-relaxed">
-                          🤖 Hello! I'm your DHPII AI assistant powered by advanced language models. I can help you with:
-                        </p>
-                        <ul className="text-xs mt-3 space-y-1 text-muted-foreground">
-                          <li>• PII/PHI detection and classification</li>
-                          <li>• Data governance policy recommendations</li>  
-                          <li>• System automation and configuration</li>
-                          <li>• Compliance and audit support</li>
-                        </ul>
-                        <p className="text-xs mt-3 font-medium text-primary">What would you like to know?</p>
-                      </div>
-                      <p className="text-xs text-muted-foreground mt-2">Just now</p>
-                    </div>
-                  </div>
-
-                  {/* Sample User Message */}
-                  <div className="flex items-start gap-4 justify-end">
-                    <div className="flex-1 flex justify-end">
-                      <div className="bg-gradient-to-r from-primary to-accent p-4 rounded-xl shadow-soft max-w-md text-right">
-                        <p className="text-sm text-white">
-                          Can you help me analyze the latest PII detection results?
-                        </p>
-                      </div>
-                    </div>
-                    <div className="w-10 h-10 bg-gradient-to-br from-primary/20 to-accent/20 rounded-xl flex items-center justify-center">
-                      <span className="text-sm font-semibold text-primary">U</span>
-                    </div>
-                  </div>
-
-                  {/* AI Response */}
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 bg-gradient-primary rounded-xl flex items-center justify-center shadow-medium">
-                      <Brain className="w-5 h-5 text-white" />
-                    </div>
-                    <div className="flex-1">
-                      <div className="bg-gradient-to-r from-background to-muted/30 p-4 rounded-xl border border-primary/20 shadow-soft max-w-md">
-                        <p className="text-sm leading-relaxed">
-                          📊 Based on your latest scan, I've identified several key insights:
-                        </p>
-                        <div className="mt-3 space-y-2">
-                          <div className="flex items-center gap-2 text-xs">
-                            <div className="w-2 h-2 bg-warning rounded-full" />
-                            <span>12,456 PII entities detected (↑15% from last week)</span>
-                          </div>
-                          <div className="flex items-center gap-2 text-xs">
-                            <div className="w-2 h-2 bg-success rounded-full" />
-                            <span>8,934 records successfully anonymized</span>
-                          </div>
-                          <div className="flex items-center gap-2 text-xs">
-                            <div className="w-2 h-2 bg-primary rounded-full" />
-                            <span>99.2% accuracy rate with GPT-4 model</span>
-                          </div>
-                        </div>
-                        <p className="text-xs mt-3 text-muted-foreground">
-                          Would you like me to generate a detailed compliance report?
-                        </p>
-                      </div>
-                      <p className="text-xs text-muted-foreground mt-2">2 minutes ago</p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Chat Input */}
-                <div className="p-4 border-t border-border/50 bg-gradient-to-r from-muted/30 to-muted/10">
-                  <div className="flex items-center gap-3">
-                    <Input 
-                      placeholder="Ask me about data privacy, compliance, or system configuration..."
-                      className="flex-1 border-primary/20 focus:border-primary/50 bg-background/80"
-                    />
-                    <Button className="bg-gradient-primary text-white shadow-soft hover:shadow-medium px-6">
-                      <Brain className="w-4 h-4 mr-2" />
-                      Send
-                    </Button>
-                  </div>
-                  <p className="text-xs text-muted-foreground mt-2">
-                    🔒 All conversations are encrypted and comply with healthcare privacy standards
-                  </p>
-                </div>
-                </div>
-            </CardContent>
-          </Card>
         </TabsContent>
       </Tabs>
     </div>

@@ -14,8 +14,10 @@ import { StructuredAnonymization } from "./pages/dashboard/StructuredAnonymizati
 import { TextAnonymization } from "./pages/dashboard/TextAnonymization";
 import { ImageAnonymization } from "./pages/dashboard/ImageAnonymization";
 import { SystemHealth } from "./pages/dashboard/SystemHealth";
-import { Integrations } from "./pages/dashboard/Integrations";
-import { DataCatalog } from "./pages/dashboard/DataCatalog";
+import { Dashboard } from "./pages/dashboard/Dashboard";
+import { DataStorage } from "./pages/dashboard/integrations/DataStorage";
+import { OutputCatalog } from "./pages/dashboard/integrations/OutputCatalog";
+import { PIITagging } from "./pages/dashboard/integrations/PIITagging";
 import { MCPServer } from "./pages/dashboard/MCPServer";
 import NotFound from "./pages/NotFound";
 
@@ -74,7 +76,7 @@ const App = () => (
               </ProtectedRoute>
             }>
               {/* Default redirect to text detection */}
-              <Route index element={<Navigate to="/dashboard/detection/text" />} />
+              <Route index element={<Dashboard />} />
               
               {/* Detection Routes */}
               <Route path="detection/text" element={<TextDetection />} />
@@ -86,9 +88,10 @@ const App = () => (
               <Route path="anonymization/image" element={<ImageAnonymization />} />
               <Route path="anonymization/structured" element={<StructuredAnonymization />} />
               
-              {/* Enterprise Routes */}
-              <Route path="integrations" element={<Integrations />} />
-              <Route path="catalog" element={<DataCatalog />} />
+              {/* Integration Routes */}
+              <Route path="integrations/storage" element={<DataStorage />} />
+              <Route path="integrations/output" element={<OutputCatalog />} />
+              <Route path="integrations/tagging" element={<PIITagging />} />
               <Route path="mcp" element={<MCPServer />} />
               
               {/* System Routes */}

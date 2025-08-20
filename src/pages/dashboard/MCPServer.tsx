@@ -422,21 +422,109 @@ export const MCPServer: React.FC = () => {
           
           <Card>
             <CardHeader>
-              <CardTitle>AI Chat Console</CardTitle>
+              <CardTitle className="flex items-center gap-2">
+                <Bot className="w-5 h-5 text-primary" />
+                AI Chat Console
+              </CardTitle>
               <CardDescription>Interact with MCP AI assistants for data governance tasks</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="flex flex-col h-96 border border-border rounded-lg">
-                <div className="flex-1 p-4 overflow-y-auto bg-muted/20">
-                  <div className="space-y-4">
-                    <div className="flex items-start space-x-3">
-                      <div className="w-8 h-8 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center">
-                        <Bot className="w-4 h-4 text-white" />
+              <div className="flex flex-col h-[500px] border border-border/50 rounded-xl overflow-hidden bg-gradient-to-b from-muted/30 to-muted/10">
+                <div className="flex items-center justify-between p-4 border-b border-border/50 bg-gradient-to-r from-primary/5 to-accent/5">
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 bg-success rounded-full animate-pulse" />
+                    <span className="text-sm font-medium">AI Assistant Online</span>
+                  </div>
+                  <Badge className="bg-success/15 text-success border-success/30">Connected</Badge>
+                </div>
+                
+                <div className="flex-1 p-6 overflow-y-auto space-y-6">
+                  {/* AI Welcome Message */}
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 bg-gradient-primary rounded-xl flex items-center justify-center shadow-medium">
+                      <Bot className="w-5 h-5 text-white" />
+                    </div>
+                    <div className="flex-1">
+                      <div className="bg-gradient-to-r from-background to-muted/30 p-4 rounded-xl border border-primary/20 shadow-soft max-w-md">
+                        <p className="text-sm leading-relaxed">
+                          🤖 Hello! I'm your DHPII AI assistant powered by advanced language models. I can help you with:
+                        </p>
+                        <ul className="text-xs mt-3 space-y-1 text-muted-foreground">
+                          <li>• PII/PHI detection and classification</li>
+                          <li>• Data governance policy recommendations</li>  
+                          <li>• System automation and configuration</li>
+                          <li>• Compliance and audit support</li>
+                        </ul>
+                        <p className="text-xs mt-3 font-medium text-primary">What would you like to know?</p>
                       </div>
-                      <div className="bg-background p-3 rounded-lg border max-w-xs">
-                        <p className="text-sm">Hello! I'm your DHPII AI assistant. I can help you with PII/PHI detection, data governance policies, and system automation. What would you like to know?</p>
+                      <p className="text-xs text-muted-foreground mt-2">Just now</p>
+                    </div>
+                  </div>
+
+                  {/* Sample User Message */}
+                  <div className="flex items-start gap-4 justify-end">
+                    <div className="flex-1 flex justify-end">
+                      <div className="bg-gradient-to-r from-primary to-accent p-4 rounded-xl shadow-soft max-w-md text-right">
+                        <p className="text-sm text-white">
+                          Can you help me analyze the latest PII detection results?
+                        </p>
                       </div>
                     </div>
+                    <div className="w-10 h-10 bg-gradient-to-br from-primary/20 to-accent/20 rounded-xl flex items-center justify-center">
+                      <span className="text-sm font-semibold text-primary">U</span>
+                    </div>
+                  </div>
+
+                  {/* AI Response */}
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 bg-gradient-primary rounded-xl flex items-center justify-center shadow-medium">
+                      <Brain className="w-5 h-5 text-white" />
+                    </div>
+                    <div className="flex-1">
+                      <div className="bg-gradient-to-r from-background to-muted/30 p-4 rounded-xl border border-primary/20 shadow-soft max-w-md">
+                        <p className="text-sm leading-relaxed">
+                          📊 Based on your latest scan, I've identified several key insights:
+                        </p>
+                        <div className="mt-3 space-y-2">
+                          <div className="flex items-center gap-2 text-xs">
+                            <div className="w-2 h-2 bg-warning rounded-full" />
+                            <span>12,456 PII entities detected (↑15% from last week)</span>
+                          </div>
+                          <div className="flex items-center gap-2 text-xs">
+                            <div className="w-2 h-2 bg-success rounded-full" />
+                            <span>8,934 records successfully anonymized</span>
+                          </div>
+                          <div className="flex items-center gap-2 text-xs">
+                            <div className="w-2 h-2 bg-primary rounded-full" />
+                            <span>99.2% accuracy rate with GPT-4 model</span>
+                          </div>
+                        </div>
+                        <p className="text-xs mt-3 text-muted-foreground">
+                          Would you like me to generate a detailed compliance report?
+                        </p>
+                      </div>
+                      <p className="text-xs text-muted-foreground mt-2">2 minutes ago</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Chat Input */}
+                <div className="p-4 border-t border-border/50 bg-gradient-to-r from-muted/30 to-muted/10">
+                  <div className="flex items-center gap-3">
+                    <Input 
+                      placeholder="Ask me about data privacy, compliance, or system configuration..."
+                      className="flex-1 border-primary/20 focus:border-primary/50 bg-background/80"
+                    />
+                    <Button className="bg-gradient-primary text-white shadow-soft hover:shadow-medium px-6">
+                      <Brain className="w-4 h-4 mr-2" />
+                      Send
+                    </Button>
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-2">
+                    🔒 All conversations are encrypted and comply with healthcare privacy standards
+                  </p>
+                </div>
+              </div>
                     
                     <div className="flex items-start space-x-3 justify-end">
                       <div className="bg-primary p-3 rounded-lg max-w-xs">

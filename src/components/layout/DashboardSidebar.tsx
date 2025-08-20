@@ -14,7 +14,11 @@ import {
   Tags,
   Bot,
   Network,
-  Settings
+  Settings,
+  Home,
+  Brain,
+  Cloud,
+  HardDrive
 } from 'lucide-react';
 import {
   Sidebar,
@@ -45,9 +49,9 @@ const anonymizationItems = [
 ];
 
 const integrationItems = [
-  { title: 'Integrations', url: '/dashboard/integrations', icon: Database },
-  { title: 'Data Catalog', url: '/dashboard/catalog', icon: Tags },
-  { title: 'MCP Server', url: '/dashboard/mcp', icon: Bot },
+  { title: 'Data Storage', url: '/dashboard/integrations/storage', icon: HardDrive },
+  { title: 'Output Catalog', url: '/dashboard/integrations/output', icon: Cloud },
+  { title: 'PII/PHI Tagging', url: '/dashboard/integrations/tagging', icon: Tags },
 ];
 
 export function DashboardSidebar() {
@@ -80,6 +84,28 @@ export function DashboardSidebar() {
       </SidebarHeader>
 
       <SidebarContent className="py-4">
+        <SidebarGroup>
+          <SidebarGroupLabel className="px-4 py-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+            Overview
+          </SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu className="space-y-1">
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                  <NavLink 
+                    to="/dashboard" 
+                    end
+                    className={`flex items-center px-3 py-2 rounded-md transition-colors ${getNavClasses('/dashboard')}`}
+                  >
+                    <Home className="w-4 h-4 mr-3" />
+                    {!isCollapsed && <span>Dashboard</span>}
+                  </NavLink>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
         <SidebarGroup>
           <SidebarGroupLabel className="px-4 py-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
             Detection
@@ -128,7 +154,7 @@ export function DashboardSidebar() {
 
         <SidebarGroup>
           <SidebarGroupLabel className="px-4 py-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-            Enterprise
+            Integrations
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu className="space-y-1">
@@ -151,10 +177,21 @@ export function DashboardSidebar() {
 
         <SidebarGroup>
           <SidebarGroupLabel className="px-4 py-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-            System
+            AI & System
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu className="space-y-1">
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                  <NavLink 
+                    to="/dashboard/mcp" 
+                    className={`flex items-center px-3 py-2 rounded-md transition-colors ${getNavClasses('/dashboard/mcp')}`}
+                  >
+                    <Bot className="w-4 h-4 mr-3" />
+                    {!isCollapsed && <span>MCP Server</span>}
+                  </NavLink>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild>
                   <NavLink 

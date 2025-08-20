@@ -2,66 +2,73 @@
 @tailwind components;
 @tailwind utilities;
 
-/* DHPII Platform Design System - Healthcare & Security Focused */
+/* DHPII Platform Design System - Modern Healthcare AI & Security */
 
 @layer base {
   :root {
-    /* Healthcare Primary Colors */
-    --background: 210 20% 98%;
-    --foreground: 215 25% 27%;
+    /* Modern Healthcare Colors - Clean & Professional */
+    --background: 210 40% 98%;
+    --foreground: 215 30% 20%;
 
     --card: 0 0% 100%;
-    --card-foreground: 215 25% 27%;
+    --card-foreground: 215 30% 20%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 215 25% 27%;
+    --popover-foreground: 215 30% 20%;
 
-    /* Medical Blue Primary */
-    --primary: 210 100% 56%;
+    /* AI-Powered Primary Blue */
+    --primary: 217 91% 60%;
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 210 100% 70%;
+    --primary-glow: 217 91% 75%;
+    --primary-variant: 217 91% 45%;
 
-    /* Healthcare Secondary */
-    --secondary: 210 20% 95%;
-    --secondary-foreground: 215 25% 27%;
+    /* Modern Healthcare Secondary */
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 215 30% 20%;
 
-    --muted: 210 20% 95%;
-    --muted-foreground: 215 16% 47%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 20% 50%;
 
-    --accent: 195 100% 50%;
+    /* Innovation Accent - Cyan for AI/Tech */
+    --accent: 189 94% 55%;
     --accent-foreground: 0 0% 100%;
+    --accent-glow: 189 94% 70%;
 
-    /* Security Red for alerts */
-    --destructive: 0 84% 60%;
+    /* Security & Alert Colors */
+    --destructive: 0 84% 55%;
     --destructive-foreground: 0 0% 100%;
 
-    /* Success Green for completed actions */
-    --success: 142 76% 36%;
+    /* Success - Modern Green */
+    --success: 142 86% 40%;
     --success-foreground: 0 0% 100%;
 
-    /* Warning Orange */
-    --warning: 38 92% 50%;
+    /* Warning - Professional Orange */
+    --warning: 35 84% 55%;
     --warning-foreground: 0 0% 100%;
 
-    --border: 210 20% 90%;
-    --input: 210 20% 95%;
-    --ring: 210 100% 56%;
+    --border: 210 30% 92%;
+    --input: 210 40% 96%;
+    --ring: 217 91% 60%;
 
-    --radius: 0.75rem;
+    --radius: 0.875rem;
 
-    /* Healthcare Gradients */
+    /* Modern AI Gradients */
     --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
-    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(210 20% 98%));
+    --gradient-accent: linear-gradient(135deg, hsl(var(--accent)), hsl(var(--accent-glow)));
     --gradient-hero: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100% / 0.9), hsl(210 40% 98% / 0.95));
+    --gradient-glass: linear-gradient(145deg, hsl(0 0% 100% / 0.1), hsl(0 0% 100% / 0.05));
 
-    /* Medical Shadows */
-    --shadow-soft: 0 2px 8px hsl(var(--primary) / 0.08);
-    --shadow-medium: 0 4px 16px hsl(var(--primary) / 0.12);
-    --shadow-strong: 0 8px 32px hsl(var(--primary) / 0.16);
+    /* Professional Shadows with Innovation Touch */
+    --shadow-soft: 0 2px 12px hsl(var(--primary) / 0.06);
+    --shadow-medium: 0 6px 24px hsl(var(--primary) / 0.1);
+    --shadow-strong: 0 12px 40px hsl(var(--primary) / 0.15);
+    --shadow-glow: 0 0 30px hsl(var(--primary-glow) / 0.25);
 
-    /* Smooth Transitions */
+    /* Smooth Professional Transitions */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --transition-elastic: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
     --sidebar-background: 0 0% 98%;
 

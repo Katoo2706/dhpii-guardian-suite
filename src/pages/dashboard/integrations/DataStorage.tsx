@@ -180,7 +180,7 @@ export const DataStorage: React.FC = () => {
           <DialogTrigger asChild>
             <Button className="bg-gradient-primary text-white shadow-medium hover:shadow-strong">
               <Plus className="w-4 h-4 mr-2" />
-              Add Data Source
+              Add Connection
             </Button>
           </DialogTrigger>
           <DialogContent className="max-w-3xl">
